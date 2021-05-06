@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+td, th {
+  width: auto;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+td mat-icon {
+  cursor: pointer;
+}

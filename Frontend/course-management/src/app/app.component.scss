@@ -1,0 +1,77 @@
+.navbar {
+    justify-content: space-between;
+}
+.links{
+    text-decoration: none;
+    color: white;
+    padding: 0px 14px;
+}
+.logout{
+    color: white;
+    border-width: 2;
+    padding: 0px 14px;
+}
+
+.button{
+    position:relative;
+}
+    
+.menu{
+    position:absolute;
+    top:5px; //change the value to set it in center
+    left:5px; //change the value to set it in center
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.container{
+    margin: 20px;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #eee;
+    overflow: hidden;
+
+    button {
+        margin: 5px 5px;
+    }
+  }
+  
+  /* Style the links inside the navigation bar */
+//   .topnav a {
+//     float: left;
+//     color: black;
+//     text-align: center;
+//     padding: 14px 16px;
+//     text-decoration: none;
+//     font-size: 17px;
+//   }
+  
+  /* Change the color of links on hover */
+//   .topnav a:hover {
+//     background-color: #000433;
+//     color: white;
+//   }
+  /* Add a color to the active/current link */
+// .topnav a.mat-accent {
+//     background-color: #000433;
+//     opacity: 80%;
+//     color: white;
+//   }
+.topnav a.right-corner{
+    float: right;
+    cursor: pointer;
+}
+
+.mat-stroked-button:hover {
+    background-color: #ccc;
+}
+
+.mat-accent button {
+    background-color: #000433;
+    opacity: 80%;
+    color: white;
+}
+

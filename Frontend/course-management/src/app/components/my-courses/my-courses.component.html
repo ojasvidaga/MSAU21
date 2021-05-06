@@ -1,0 +1,51 @@
+<table class="table-view" align="center">
+    <tr>
+        <th>
+            <mat-icon color="primary" title="Course">book</mat-icon>
+            <div>Course Name</div>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Location">location_on</mat-icon>
+            <div>Location</div>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Prerequistes">fact_check</mat-icon>
+            <div>Prerequistes</div>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Skills" style="transform: scaleY(-1);">wb_incandescent</mat-icon>
+            <div>Skills</div>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Description">article</mat-icon>
+            <div>Description</div>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Skills">note_add</mat-icon>
+            <mat-icon color="primary" title="Skills">layers_clear</mat-icon>
+            <div>File operations</div>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Description">drafts</mat-icon>
+            <div>Send Mail</div>
+        </th>
+    </tr>
+    <tr>
+
+    </tr>
+    <tr *ngFor="let course of courses">
+        <td>{{course.courseName}}</td>
+        <td>{{course.courseLocation}}</td>
+        <td>{{course.coursePrerequisites}}</td>
+        <td>{{course.courseSkills}}</td>
+        <td>{{course.courseDescription}}</td>
+        <th>
+            <mat-icon color="primary" title="Upload" (click)="openAddDialog(course.courseId)">publish</mat-icon>&nbsp;
+            <mat-icon color="primary" title="View/Delete" (click)="openDeleteDialog(course.courseId)">visibility
+            </mat-icon>
+        </th>
+        <th>
+            <mat-icon color="primary" title="Upload" (click)="openMailDialog(course)">send</mat-icon>&nbsp;
+        </th>
+    </tr>
+</table>

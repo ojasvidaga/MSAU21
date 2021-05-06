@@ -1,0 +1,265 @@
+<!-- Radio Button to Select Screen -->
+<div align="center">
+    <div *ngIf="!editMode">
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="section">
+            <mat-radio-button class="example-radio-button" *ngFor="let option of sections" [value]="option">
+                {{option}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+<!-- Add Course Screen -->
+<form *ngIf="section == 'Add Course' && !editMode" [formGroup]="addCourseForm" (submit)="addCourse()">
+    <!-- Name -->
+    <div class="form">
+        <div>
+            <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                <mat-label>Course Name</mat-label>
+                <input matInput #name maxlength="100" placeholder="Eg: Angular 8" formControlName="name">
+                <mat-hint align="end">{{name.value?.length || 0}}/100</mat-hint>
+            </mat-form-field>
+        </div>
+        <!-- Description -->
+        <div>
+            <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                <mat-label>Description</mat-label>
+                <input matInput #desc maxlength="100" placeholder="Eg: Building Reactive WebApps"
+                    formControlName="description">
+                <mat-hint align="end">{{desc.value?.length || 0}}/100</mat-hint>
+            </mat-form-field>
+        </div>
+        <!-- PreRequisites -->
+        <div>
+            <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                <mat-label>Prerequsites</mat-label>
+                <input matInput #prereq maxlength="100" placeholder="Eg: HTML,CSS,JS,OOP"
+                    formControlName="prerequisites">
+                <mat-hint align="end">{{prereq.value?.length || 0}}/100</mat-hint>
+            </mat-form-field>
+        </div>
+        <!-- Skills -->
+        <div>
+            <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                <mat-label>Skills</mat-label>
+                <input matInput #skills maxlength="100" placeholder="Eg: TypeScript,WebDev,FrontEnd"
+                    formControlName="skills">
+                <mat-hint align="end">{{skills.value?.length || 0}}/100</mat-hint>
+            </mat-form-field>
+        </div>
+        <!-- Location -->
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Select A Location</mat-label>
+                <mat-select formControlName="location">
+                    <mat-option value="Bangalore">Bangalore</mat-option>
+                    <mat-option value="Chennai">Chennai</mat-option>
+                    <mat-option value="Delhi">Delhi</mat-option>
+                    <mat-option value="Gurgaon">Gurgaon</mat-option>
+                    <mat-option value="Hyderabad">Hyderabad</mat-option>
+                    <mat-option value="Mumbai">Mumbai</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <button type="submit" mat-stroked-button color="primary" [disabled]="!addCourseForm.valid">Add
+                Course</button>
+        </div>
+    </div>
+</form>
+
+<!-- Modigy/Delete Course Screen -->
+<div *ngIf="section == 'Modify/Delete Course'  && !editMode" style="width: 100%">
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+    </mat-form-field>
+
+    <div class="mat-elevation-z8" style="width: 100%">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let course"> {{course.courseId}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let course"> {{course.courseName}} </td>
+            </ng-container>
+
+            <!-- Location Column -->
+            <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+                <td mat-cell *matCellDef="let course"> {{course.courseLocation}} </td>
+            </ng-container>
+
+            <!-- Prerequisites Column -->
+            <ng-container matColumnDef="prerequisites">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Prerequisites </th>
+                <td mat-cell *matCellDef="let course"> {{course.coursePrerequisites}} </td>
+            </ng-container>
+
+            <!-- Skills Column -->
+            <ng-container matColumnDef="skills">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Skills </th>
+                <td mat-cell *matCellDef="let course"> {{course.courseSkills}} </td>
+            </ng-container>
+
+            <!-- Trainer Column -->
+            <ng-container matColumnDef="addTrainerActions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Trainers </th>
+                <td mat-cell *matCellDef="let course">
+                    <mat-icon color="primary" title="Add/Remove Trainer" (click)="addEditTrainerScreen(course)">
+                        group
+                    </mat-icon>
+                </td>
+            </ng-container>
+
+            <!-- Modify Column -->
+            <ng-container matColumnDef="editActions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Modify </th>
+                <td mat-cell *matCellDef="let course">
+                    <mat-icon color="primary" title="Modify/Delete Course" (click)="modifyCourseScreen(course)">
+                        create
+                    </mat-icon>
+                </td>
+            </ng-container>
+
+            <!-- Delete Column -->
+            <ng-container matColumnDef="deleteActions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Delete </th>
+                <td mat-cell *matCellDef="let course">
+                    <mat-icon color="primary" title="Modify/Delete Course" (click)="deleteCourse(course)">
+                        delete
+                    </mat-icon>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let course; columns: displayedColumns;">
+            </tr>
+        </table>
+
+        <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator> -->
+    </div>
+</div>
+
+
+
+<div *ngIf="editMode && !trainerMode">
+
+    <div style="width: 10%;">
+        <button mat-stroked-button color="primary" (click)="goBack()">
+            <mat-icon color="primary">keyboard_backspace</mat-icon>
+        </button>
+    </div>
+
+    <div style="width: 100%; border-style: dashed; border-width: 2; border-color: grey; border-radius: 10%">
+        <h1 align="center">Modify Course Details</h1>
+        <form [formGroup]="editCourseForm" (submit)="editCourse()">
+            <!-- Name -->
+            <div class="form" style="width: 100%;">
+                <div>
+                    <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                        <mat-label>Course Name</mat-label>
+                        <input matInput #name maxlength="100" placeholder="Eg: Angular 8" formControlName="editName">
+                        <mat-hint align="end">{{name.value?.length || 0}}/100</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- Description -->
+                <div>
+                    <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <input matInput #desc maxlength="100" placeholder="Eg: Building Reactive WebApps"
+                            formControlName="editDescription">
+                        <mat-hint align="end">{{desc.value?.length || 0}}/100</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- PreRequisites -->
+                <div>
+                    <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                        <mat-label>Prerequsites</mat-label>
+                        <input matInput #prereq maxlength="100" placeholder="Eg: HTML,CSS,JS,OOP"
+                            formControlName="editPrerequisites">
+                        <mat-hint align="end">{{prereq.value?.length || 0}}/100</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- Skills -->
+                <div>
+                    <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                        <mat-label>Skills</mat-label>
+                        <input matInput #skills maxlength="100" placeholder="Eg: TypeScript,WebDev,FrontEnd"
+                            formControlName="editSkills">
+                        <mat-hint align="end">{{skills.value?.length || 0}}/100</mat-hint>
+                    </mat-form-field>
+                </div>
+                <!-- Location -->
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Select A Location</mat-label>
+                        <mat-select formControlName="editLocation">
+                            <mat-option value="Bangalore">Bangalore</mat-option>
+                            <mat-option value="Chennai">Chennai</mat-option>
+                            <mat-option value="Delhi">Delhi</mat-option>
+                            <mat-option value="Gurgaon">Gurgaon</mat-option>
+                            <mat-option value="Hyderabad">Hyderabad</mat-option>
+                            <mat-option value="Mumbai">Mumbai</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button type="submit" mat-stroked-button color="primary" [disabled]="!editCourseForm.valid">
+                        Modify Course Details</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Assign / UnAssign Trainer -->
+<div *ngIf="trainerMode && editMode">
+    <div style="width: 10%;">
+        <button mat-stroked-button color="primary" (click)="goBack()">
+            <mat-icon color="primary">keyboard_backspace</mat-icon>
+        </button>
+    </div>
+    <div style=" width: 100%; border-style: dashed; border-width: 2px; border-color: grey; border-radius: 10%;">
+        <div>
+            <h2 align="center">Assign New Trainer</h2>
+            <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Select a Trainer" aria-label="Number" matInput
+                        [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <button (click)="assignTrainer()" mat-stroked-button color="primary" [disabled]="!myControl.value">Add
+                    Trainer</button>
+            </form>
+        </div>
+
+        <div style="width: 100%;">
+            <h2 align="center">Unassign Existing Trainers</h2>
+
+            <table align="center">
+                <tr>
+                    <th>Employee Name</th>
+                    <th>Unassign Employee</th>
+                </tr>
+                <tr *ngFor="let trainer of trainers">
+                    <td>
+                        <p align="center"> {{trainer.empName}} </p>
+                    </td>
+                    <td>
+                        <mat-icon style="margin-left: 45%;" color="primary" title="Unassign Trainer"
+                            (click)="unassignTrainer(trainer.empId)">delete</mat-icon>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

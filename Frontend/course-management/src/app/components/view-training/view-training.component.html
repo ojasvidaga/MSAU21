@@ -1,0 +1,30 @@
+<h4 align="center">Trainer & Training Material</h4>
+<table align="center">
+    <tr>
+        <th>
+            Trainers
+        </th>
+        <th>
+            Training Material
+        </th>
+    </tr>
+    <tr *ngFor="let trainer of trainers">
+        <td>
+            {{trainer.empName}}
+        </td>
+        <td>
+            <div *ngFor="let files of unprocessedFiles;">
+                <div *ngIf="files.trainerId == trainer.empId; else notShow">
+                    <mat-icon color="primary">file_copy</mat-icon>
+                    <a (click)="downloadFile(files.file, files.fileType)"> {{files.fileName}} </a>
+                </div>
+                <ng-template #notShow>
+                    <!-- <div>
+                        No files available
+                    </div> -->
+                </ng-template>
+            </div>
+        </td>
+
+    </tr>
+</table>

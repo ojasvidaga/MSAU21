@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="topnav" *ngIf = "loginService.getLoginStatus()">
+    <a [routerLink] = "['/all-courses']" [routerLinkActive] = "['mat-accent']"><button mat-stroked-button color="primary">All Courses</button></a>
+    <a [routerLink] = "['/manage-courses']" [routerLinkActive] = "['mat-accent']"><button mat-stroked-button color="primary">Manage Courses</button></a>
+    <a [routerLink] = "['/assigned-courses']" [routerLinkActive] = "['mat-accent']"><button mat-stroked-button color="primary">My Courses</button></a>
+    <a [routerLink] = "['/dashboard']" [routerLinkActive] = "['mat-accent']"><button mat-stroked-button color="primary">Dashboard</button></a>
+    <a (click) = "logout()" class = "right-corner"><button mat-stroked-button color="primary">Logout</button></a>
+  </div> 
+
+  <router-outlet></router-outlet>
+</div>

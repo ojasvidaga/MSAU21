@@ -1,0 +1,72 @@
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        actions
+        <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let course"> {{course.courseName}} </td>
+        </ng-container>
+
+        <!-- Location Column -->
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef> Location </th>
+            <td mat-cell *matCellDef="let course"> {{course.courseLocation}} </td>
+        </ng-container>
+
+        <!-- Prerequisites Column -->
+        <ng-container matColumnDef="prerequisites">
+            <th mat-header-cell *matHeaderCellDef> Prerequisites </th>
+            <td mat-cell *matCellDef="let course"> {{course.coursePrerequisites}} </td>
+        </ng-container>
+
+        <!-- Skills Column -->
+        <ng-container matColumnDef="skills">
+            <th mat-header-cell *matHeaderCellDef> Skills </th>
+            <td mat-cell *matCellDef="let course"> {{course.courseSkills}} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let course">{{course.courseDescription}}
+            </td>
+        </ng-container>
+
+        <!-- Trainer Column -->
+        <ng-container matColumnDef="trainer">
+            <th mat-header-cell *matHeaderCellDef> Trainers </th>
+            <td mat-cell *matCellDef="let course">
+                <mat-icon color="primary" title="View Trainers" (click)="openTrianerDialog(course.courseId)">
+                    group
+                </mat-icon>
+            </td>
+        </ng-container>
+
+        <!-- Version Column -->
+        <ng-container matColumnDef="version">
+            <th mat-header-cell *matHeaderCellDef> File Versions </th>
+            <td mat-cell *matCellDef="let course">
+                <button mat-stroked-button color="primary" (click)="openVersionDialog(course.courseId)">
+                    Versions
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20, 40]"></mat-paginator> -->
+</div>
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->
