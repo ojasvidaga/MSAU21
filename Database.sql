@@ -81,15 +81,7 @@ deleted_on timestamp
 );
 
 insert into employee
-values(1, 'omkar.ravindraraykar@accoliteindia.com', 'Omkar Raykar', 'Software Dev Intern', 'Mumbai', null, null, null);
-insert into employee
-values(2, 'darshan.sudhirpatil@accoliteindia.com', 'Darshan Patil', 'TDM', 'Bangalore', null, null, null);
-insert into employee
-values(3, 'radnyee.shailendramhatre@accoliteindia.com', 'Radnyee Mhatre', 'BU Head', 'Mumbai', null, null, null);
-insert into employee
-values(4, 'gaurav.mohinderyadav@accoliteindia.com', 'Gaurav Yadav', 'Software Dev Senior', 'Bangalore', null, null, null);
-insert into employee
-values(5, 'rohan.sanjaypawar@accoliteindia.com', 'Rohan Pawar', 'Software Dev Senior', 'Mumbai', null, null, null);
+values(1, 'ojasvi.daga@accoliteindia.com', 'Ojasvi Daga', 'Admin Employee', 'Mumbai', null, null, null);
 
 insert into system_admin
 values(1, null, null);
